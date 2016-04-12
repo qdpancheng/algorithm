@@ -21,3 +21,29 @@ void InsertionSort(vector<Rsort> &a)
 		a[i+1] = temp;
 	}
 }
+
+
+/*************************************************
+// Method: BubbleSort
+// Description: 冒泡排序两两比较，将大的数据“沉”下去，外层循环要经过n-1次
+// Author: pancheng
+// Date: 2016/04/11
+// Returns: void
+// Parameter: a
+// History:
+*************************************************/
+template <typename Rsort>
+void BubbleSort(vector<Rsort> &a)
+{
+	int len = a.size();
+	for (int i = 0; i < len-1; ++i)
+	{
+		for (int j = 0; j < len-1-i; ++j)
+		{
+			if (a[j] > a[j + 1])
+			{
+				swap(a[j], a[j + 1]);
+			}
+		}
+	}
+}
