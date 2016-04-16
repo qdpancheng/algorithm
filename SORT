@@ -48,3 +48,70 @@ void BubbleSort(vector<Rsort> &a)
 	}
 }
 
+
+/*************************************************
+// Method: SelectSrot
+// Description: 选择排序，从无序序列中选取最小的放在当前位置，然后继续循环
+// Author: pancheng
+// Date: 2016/04/16
+// Returns: void
+// Parameter: a
+// History:
+*************************************************/
+template<typename Rsort>
+void SelectSrot(vector<Rsort> &a)
+{
+	int len = a.size();
+	for (int i = 0; i < len; ++i)
+	{
+		int minindex = i;
+		for (int j = i+1; j < len; ++j)
+		{
+			if (a[j] < a[minindex])
+			{
+				minindex = j;
+			}
+		}
+		swap(a[i], a[minindex]);
+	}
+}
+
+
+
+/*************************************************
+// Method: ShellSort
+// Description: shell排序又称缩减增量排序  low-->high
+// Author: pancheng
+// Date: 2016/04/15
+// Returns: void
+// Parameter: a
+// History:可以优化
+*************************************************/
+template <typename Rsort>
+void ShellSort(vector<Rsort> &a)
+{
+	int len = a.size();	//得到容器的大小
+	for (int gap = len / 2; gap > 0; gap /= 2)			//得到排序的次数
+	{
+		for (int i = 0; i < gap; ++i)			//每次排序将序列分为gap组
+		{
+			for (int j = gap + i; j < len; j += gap)
+			{
+				//得到要排序的序列，下面使用插入排序
+				if (a[j] < a[j - gap])
+				{
+					Rsort temp;
+					temp = a[j];
+					int k = j - gap;
+					while (k >= 0 && a[k] > temp)		//将前面比a[j]小的数全部后移
+					{
+						a[k + gap] = a[k];
+						k -= gap;
+					}
+					a[k + gap] = temp;
+				}
+			}
+		}
+	}
+}
+
