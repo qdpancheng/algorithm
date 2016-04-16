@@ -115,3 +115,71 @@ void ShellSort(vector<Rsort> &a)
 	}
 }
 
+
+-----------------------------------------------------------------------------------------------------------------------------------
+/*归并排序的思路：将数组分成两组A,B，如果这两组组内的数据都是
+有序的，那么就可以很方便的将这两组数据排序。如何将两组组内数据
+有序呢？-->可以将A,B组各自再分成两组。以此类推，当分出的小组只
+有一个数据时，可以认为这个小组组内已经达到有序，然后合并相邻的
+两个数组就可以。
+*/
+template <typename Rsort>
+void MergeSort(vector<Rsort> &a)
+{
+	int len = a.size();
+	//先分在合并
+	Rsort *pTempArray = new Rsort[len];
+	mergesort(a, 0, len - 1, pTempArray);
+	delete[] pTempArray;
+}
+
+template <typename Rsort>
+void mergesort(vector<Rsort> &a, int first, int last, Rsort temp[])
+{
+	if (first < last)
+	{
+		int mid = (first + last) / 2;
+		mergesort(a, first, mid, temp);
+		mergesort(a, mid + 1, last, temp);
+		mergearray(a, first, mid, last, temp);
+	}
+}
+
+//将两个有序数列合并
+template <typename Rsort>
+void mergearray(vector<Rsort> &a, int first, int mid, int last, Rsort temp[])
+{
+	int i = first, j = mid + 1;
+	int k = 0;
+	//若while循环结束则表示其中一个分组赋值完成
+	while (i <= mid && j <= last)
+	{
+		if (a[i] < a[j])
+		{
+			temp[k++] = a[i++];
+		} 
+		else
+		{
+			temp[k++] = a[j++];
+		}
+	}
+	while (i <= mid)
+	{
+		temp[k++] = a[i++];
+	}
+	while (j <= last)
+	{
+		temp[k++] = a[j++];
+	}
+	for (int i = 0; i < k; ++i)
+	{
+		a[i + first] = temp[i];
+	}
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
